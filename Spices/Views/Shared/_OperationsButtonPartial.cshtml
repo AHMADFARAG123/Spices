@@ -1,0 +1,17 @@
+﻿
+@model int     
+<div class="btn-group" role="group">
+    <a asp-action="Details" class="btn btn-success text-white" asp-route-id="@Model">    <!--lecture2 52 minuts-->
+
+        <i class="fas fa-list-alt"></i>
+    </a>
+    <a asp-action="Edit" class="btn btn-primary text-white" asp-route-id="@Model">
+
+        <i class="fas fa-edit"></i>            <!--  // <i class="fa-duotone fa-pen-to-square-"></i> //   //<i class="fa-light fa-pen-to-square"></i>// -->
+    </a>
+    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@Model">
+
+        <i class="fa-solid fa-trash-alt"></i>
+    </a>
+
+</div>

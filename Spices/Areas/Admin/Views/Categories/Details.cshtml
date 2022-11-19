@@ -1,0 +1,52 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />             <!--lecture2 57 minuts-->
+<h2 class="text-info">Categoty Details)</h2>
+<br />
+
+
+
+<div class="whiteBackGround border">
+
+
+   
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="id" class="col-form-lable"></label>
+        </div>
+
+        <div class="col-5">
+            <input asp-for="id" readonly class="form-control" />
+           
+        </div>
+
+    </div>
+
+
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Name" class="col-form-lable"></label>
+        </div>
+
+        <div class="col-5">
+            <input asp-for="Name" readonly class="form-control" />
+            
+        </div>
+
+    </div>
+    <div class="form-group row">
+        <div class="col-5 offset-2">
+            <partial name="_EditAndBackToListButtonPartial" model="@Model.id" />    <!--lecture2 1:03:43 minuts-->
+        </div>
+    </div>
+
+</div>
+
+
+
+

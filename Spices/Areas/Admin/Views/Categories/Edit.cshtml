@@ -1,0 +1,52 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+<br />
+<h2 class="text-info">Edit Categoty)</h2>
+<br />
+<!--notes from mind Erease-->
+<div class="col-6 text-right">
+    <p>Route==>Areas=>Admin=>Viwes=>foldercategries=>Edite </p>
+</div>
+<!-- End notes from mind  Erase-->
+<form asp-action="Edit" methode="post">
+
+    <div class="whiteBackGround border">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>        <!--lecture2 .. minuts-->
+        @Html.HiddenFor(m => m.id)                              <!--lecture2 48:13 minuts-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Name" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="Name" class="form-control" />
+                <span class="text-danger" asp-validation-for="Name"></span>          <!--lecture2 .. minuts-->
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_UpdateAndBackToListButtonPartial" />
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts{          <!--lecture2 ..minuts-->
+
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+lecture2 39 minuts-->
+
+

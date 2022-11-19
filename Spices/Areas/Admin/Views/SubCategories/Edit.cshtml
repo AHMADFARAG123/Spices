@@ -1,0 +1,124 @@
+﻿ <!--lecture3   01:08:01minuts-->
+@model SubCategoryAndCategoryViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 class="text-info">Edit SubCategory</h2>
+<br />
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />   <!--lecture3 47 minuts-->
+<div class="whiteBackGround border row">
+
+    <div class="col-8 border-right">
+        <form asp-action="Edit" methode="post">
+            <input type="hidden" asp-for="SubCAtegory.id" />     <!--lecture3 01:09:01 minuts-->
+            <input type="hidden" asp-for="SubCAtegory.CategoryId" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>        <!--lecture3 23 minuts-->
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SubCAtegory.caTegory.Name" class="col-form-lable"></label>  <!--***take care<=SubCAtegory.categoryId not SubCAtegory.caTegory.Name  =>  lecture3 24 minuts  -->
+                </div>
+
+                <div class="col-5">
+                    <select class="form-control" id="ddlCategories"
+                        disabled asp-for="SubCAtegory.CategoryId" asp-items="@(new SelectList(Model.CategoriesList,"id","Name"))"></select> <!--***take care<=(((SubCAtegory.CategoryId not SubCAtegory.caTegory.Name))) =>lecture3 27:25 minuts  -->
+                    <span class="text-danger" asp-validation-for="SubCAtegory.Name"></span>
+                </div>
+
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SubCAtegory.Name" class="col-form-lable"></label>
+                </div>
+
+                <div class="col-5">
+                    <input asp-for="SubCAtegory.Name" class="form-control" />
+                    <span class="text-danger" asp-validation-for="SubCAtegory.Name"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                <div class="col-5 offset-3">
+                    <!--<partial name="_UpdateAndBackToListButtonPartial" />-->
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-primary form-control " value="Update" />
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-success form-control">Back To List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+    <div class="col-3 offset-1">
+
+
+        <p>Existing Sub Categories:</p>
+        <div id="divSubCaegoriesList">
+
+        </div>
+
+
+    </div>
+</div>
+@section Scripts{
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+
+    <script>
+
+        function updateSubCategories() {                        //هعرف فن كشن هسميها
+
+            var selectedCategory = document.getElementById("ddlCategories").value;
+            $list = $('#divSubCaegoriesList');     //جى كويرى ...هعرف ليست ...هذا المتغير لسيت بيساوى الديف
+            $.ajax({
+                url: '/Admin/SubCategories/GetSubCATegories/' + selectedCategory,     //lecture3 56:51 minuts
+                type: 'GET',
+                dataType: 'text',  //   //lecture3 58 minuts
+                success: function (data) {
+                    results = JSON.parse(data);   //  هعرف ريزلت بتساوى جيسون....
+
+                    $list.html(''); //  اعمل لها تفريغ
+
+                    $list.append('<ul  class="list-group">')   //  الليست دى ضيف داخلها يو ال
+                    for (i in results) {
+
+                        $list.append('<li  class="list-group-item">' + results[i].text + '</li>')
+
+                    }
+                    $list.append('</ul>');     //  بعد ما تخلص الفور لووب اعمل اغلاق للان اوردر لسيت
+                }
+
+            }
+
+            );
+
+        }
+        $(document).ready(function () {  //   اشغل الفن كشن لما الشاشة تشتغل
+
+            updateSubCategories();
+
+
+        });
+        
+
+    </script>
+}
+
+

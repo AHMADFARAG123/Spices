@@ -1,0 +1,40 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />             <!--lecture2 57 minuts-->
+<h2 class="text-info">Delete Categoty)</h2>
+<br />
+<!--notes from mind Erease-->
+<div class="col-6 text-right">
+    <p>Route==>Areas=>Admin=>Viwes=>foldercategries=>Delete </p>
+</div>
+<!-- End notes from mind  Erase-->
+<form asp-action="Delete" methode="post">
+
+    <div class="whiteBackGround border">
+
+
+        @Html.HiddenFor(m => m.id)                              
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Name" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="Name" readonly class="form-control" />
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_DeleteAndBackToListButtonPartial" />
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
