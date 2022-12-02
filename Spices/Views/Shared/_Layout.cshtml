@@ -34,10 +34,10 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-action="index" asp-controller="Categories" asp-area="Admin"> Category</a>
-                                <a class="dropdown-item" asp-action="index"  asp-controller="SubCategories" asp-area="Admin">Sub Category</a>
+                                <a class="dropdown-item" asp-action="index" asp-controller="SubCategories" asp-area="Admin">Sub Category</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Menu Item</a>
-                                <a class="dropdown-item" href="#">Coupons</a>
+                                <a class="dropdown-item" asp-action="index" asp-controller="MenuItems" asp-area="Admin">Menu Item</a>     <!--LECTURE 4    22:15-->
+                                <a class="dropdown-item" asp-action="index" asp-controller="Coupons"   asp-area="Admin">Coupons</a>  <!--Lecture5   11 minuts-->
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Users</a>
 
@@ -62,6 +62,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.tiny.cloud/1/1o0aj3m12pj3xd5u8sxp9015irpcdclb0jgvaikdfpus0veg/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> <!--محاضره4 الدقيقه 1:11:00 بيشرح فيها موقع تينى دوت كلاوود الخاص بالريتش تيكسيت بوكس-->
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -6,10 +6,11 @@
 
 
 
-<div class="whiteBackGround">    <!-- lecture4 19:30 -->
+<div class="whiteBackGround">
+    <!-- lecture4 19:30 -->
     <div class="row">
         <div class="col-6">
-            <h2 class="text-info">Categories List</h2>
+            <h2 class="text-info">Menu Items List</h2>
         </div>
 
         <div class="col-6 text-right">
@@ -20,16 +21,30 @@
     </div>
     @if (Model.Count() == 0)
     {
-        <p class="text-danger">No Category....</p>
+        <p class="text-danger">No Menu Items....</p>
     }
     else
     {
         <table class="table table-striped border">
             <tr class="table-secondary">
                 <th>
-                    @Html.DisplayNameFor(m => m.Name)
+                    @Html.DisplayNameFor(m => m.Name)  <!-- lecture4 19:30 -->
                 </th>
                 <th>
+                    @Html.DisplayNameFor(m => m.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.CATEGOry.Name)      <!--  فى المحاضره عاملها كاتيجورى اى دى  lecture4 20:00 -->
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.SUBcategory.Name)   <!--  فى المحاضره عاملها صب كاتيجورى فقط-->
+
+                <th>
+                    @Html.DisplayNameFor(m => m.image)   <!--من عندى هو كان سايبها فاضيه-->
+                </th>
+                <th>
+
+
 
                 </th>
 
@@ -41,23 +56,35 @@
 
                         @Html.DisplayFor(m => item.Name)
                     </td>
+                    <td>
+
+                        @Html.DisplayFor(m => item.Price)
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(m => item.CATEGOry.Name)
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(m => item.SUBcategory.Name)
+                    </td>
+                    <td>
+
+                        <img src="@item.image"  width="50" />  <!--lecture4    1:05:00 -->
+
+
+                    </td>
 
                     <td style="width:150px">
-                        <partial name="_OperationsButtonPartial" model="@item.id" />
+                        <partial name="_OperationsButtonPartial" model="item.ID" />
 
                     </td>
                 </tr>
+                }
+
+            </table>
             }
 
-        </table>
-    }
 
+        </div>
 
-
-
-
-
-
-
-
-</div>

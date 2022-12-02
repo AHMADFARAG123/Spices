@@ -1,8 +1,43 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<br />
+  <!--lecture6  12:00-->
+@if (Model.CouponS.Count()>0)
+{
+    <div class="border row">
+        <div class="carousel row" data-ride="carousel"data-interval="2500">  <!--lecture6  11:19     data-ride اسمها اتريبيوت--> 
+            @for (int i = 0; i < Model.CouponS.Count(); i++)
+            {
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-   <h1 class="display-5">Eng:Ahmad Farag</h1>
-</div>
+
+                var basE64 = Convert.ToBase64String(Model.CouponS.ToList()[i].Picture);<!--lecture6  16:13-->
+                var imageSrc = string.Format("data:iamge/jpeg;base64,{0}", basE64); <!--lecture6  16:13-->
+
+
+                if (i == 0)
+                {
+                    <div class="carousel-item active">
+                        <img src="@imageSrc" height="100px" class="d-block w-100" />
+
+                    </div>
+
+                }
+                else
+                {
+                    <div class="carousel-item">
+                        <img src="@imageSrc" height="100px" class="d-block w-100" />
+
+                    </div>
+
+                }
+
+            }
+
+
+
+        </div>
+      </div>
+}

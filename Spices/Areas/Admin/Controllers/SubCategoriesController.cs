@@ -107,16 +107,16 @@ namespace Spices.Areas.Admin.Controllers
         {
 
             List<SubCategory> subCATegoriEs = new List<SubCategory>(); //  بعرف ليست اوف صب كاتيجورى // هذه الميثود هترجع لى جيسون داتا وانا هقرء هذه الجيسون داتا عن طريق اجاكس
-            subCATegoriEs = await db.SubCategories.Where(m => m.CategoryId == id).ToListAsync();
-            return Json(new SelectList(subCATegoriEs, "Id", "Name"));   /*lecture3   51:49minuts*/
+            subCATegoriEs = await db.SubCategories.Where(m => m.caTegory.id == id).ToListAsync();
+            return Json(new SelectList(subCATegoriEs, "id", "Name"));   /*lecture3   51:49minuts*/
 
             // هذه السليكت ليست هحولها الى جيسون
 
         }
 
-        ////////////////////////////////////////////////////////////////////////
+        ///////////////////Start  edit subcategory/////////////////////////////////////////////////////
 
-        // lecture3   1:05:02 minuts   Start  edit subcategory
+        // lecture3   1:05:02 minuts   
         //Get
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
@@ -198,9 +198,9 @@ namespace Spices.Areas.Admin.Controllers
 
 
 
-        ////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////Start  Delte subcategory////////////////////////////////////////
 
-        // lecture3   1:18:02 minuts   Start  Delte subcategory
+        // lecture3   1:18:02 minuts   
         //Get
         [HttpGet]
         public IActionResult Delete(int? id)
@@ -230,15 +230,15 @@ namespace Spices.Areas.Admin.Controllers
             db.SubCategories.Remove(sUbCaTEg);
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-            // lecture3    End  Delte subcategory
+            // lecture3    
         }
 
+        /////////////////////////////End  Delte subcategory/////////////////////////////////////////
 
 
+        /////////////////////////////Start  Details subcategory///////////////////////////////////////////
 
-        ////////////////////////////////////////////////////////////////////////
-
-        // lecture3   1:23:02 minuts   Start  Details subcategory
+        // lecture3   1:23:02 minuts   
         //Get
         [HttpGet]
         public IActionResult Details(int? id)

@@ -1,0 +1,104 @@
+﻿@model Coupon
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 class="text-info"> Coupon Details </h2>     <!--lecture5  42minuts-->
+<br />
+
+
+
+    <div class="whiteBackGround border">
+        @if (Model.Picture != null)  //  <!--lecture5  minuts-->
+
+        {
+            <img style="width:50%;height:50%;border-radius:5px;" src="@("data:iamge/jpeg;base64,"+ Convert.ToBase64String(Model.Picture))" />
+            <br /> <br />
+
+        }
+        <input type="hidden" asp-for="iD" />    <!--هامرر الكوبون اى دى فى هيدن   lecture5 -->
+        <input type="hidden" asp-for="Picture" /> <!--هامرر الكوبون دوت بيكيتشر  فى هيدن  lecture5 35:57-->
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>        <!--lecture5  minuts-->
+        <!--Name of Coupon-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Name" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="Name" class="form-control" readonly />    <!--lecture5 39:37minuts-->
+
+            </div>
+
+        </div>
+        <!--Picture-->
+        <!--Coupon Type-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="CouponType" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <select class="form-control" disabled asp-for="CouponType" asp-items="@Html.GetEnumSelectList<Coupon.EcouponType>()"></select>   <!--lecture5   -->
+            </div>
+
+        </div>
+        <!--Discount-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Discount" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="Discount" readonly class="form-control" />   <!--lecture5 39:58minuts-->
+
+            </div>
+
+        </div>
+        <!--MinimumAmount-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MininmumAmount" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="MininmumAmount" readonly class="form-control" />   <!--lecture5 40:06minuts-->
+
+            </div>
+
+        </div>
+        <!--IS Active-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IsActive" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="IsActive" disabled type="checkbox" class="form-control" />   <!--lecture5   00 minuts-->
+
+            </div>
+
+        </div>
+        <!--Partial-->
+        <div class="form-group row">
+            <!--lecture5- 28:57-->
+            <div class="col-5 offset-2">
+
+                <partial name="_EditAndBackToListButtonPartial" model="@Model.iD" />   <!--همرر له الكوبون اى دى-->
+            </div>
+        </div>
+
+    </div>
+
+
+@section Scripts{          <!--lecture2 ..minuts-->
+
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+

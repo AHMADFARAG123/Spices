@@ -18,5 +18,7 @@ namespace Spices.Data
 
         public DbSet <MenItem> MenuItems { get; set; }    //lecture4 8:50minuts
 
+        public DbSet<Coupon> Coupons { get; set; }    //lecture5 5:50minuts
+
     }
 }

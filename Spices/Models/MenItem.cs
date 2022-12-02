@@ -11,14 +11,14 @@ namespace Spices.Models
     {
 
         [Key]
-        public int ID { get; set; }  //1
+        public int ID { get; set; }  
 
         [Required]
         [Display(Name = "Name MEnuItem")]
-        public string Name { get; set; }   //2
+        public string Name { get; set; }   
 
       //  [Required]
-        public string description { get; set; }   //3
+        public string description { get; set; }   
       //  [Required]
         public double Price { get; set; }    //4
        

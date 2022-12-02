@@ -21,7 +21,7 @@ namespace Spices.Models
         [Required]
         [Display(Name = "CAtegory")]   // i I mean upr case "CA" categoryId
         public int CategoryId { get; set; }  // i I mean lower case "c" categoryId
-        [ForeignKey("CategoryId")]
+        [ForeignKey("CategoryId")] 
         public virtual Category caTegory { get; set; }     // i I mean upr case "T" caTegory
     }
 }

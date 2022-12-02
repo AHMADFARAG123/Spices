@@ -1,0 +1,178 @@
+﻿@model MenuItemViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--lecture4  1:21:00 minuts-->
+<br />
+<h2 class="text-info">Edit MenuItem (Edit MenuItem)</h2>
+<br />
+
+<form asp-action="Edit" methode="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="MeNUitem.ID" />     <!--lecture3 01:09:01 minuts-->
+    <input type="hidden" asp-for="MeNUitem.image" />
+
+    <div class="whiteBackGround border row">
+        <div class="col-8">
+
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>        <!--lecture4   minuts-->
+            <!--Name-->
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MeNUitem.Name" class="col-form-lable"></label>
+                </div>
+
+                <div class="col-8">
+                    <input asp-for="MeNUitem.Name" class="form-control" />
+                    <span class="text-danger" asp-validation-for="MeNUitem.Name"></span>          <!--lecture4   minuts-->
+                </div>
+
+            </div>
+            <!--Dsecrepion-->
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MeNUitem.description" class="col-form-lable"></label>
+                </div>
+
+                <div class="col-8">
+                    <textarea asp-for="MeNUitem.description" class="form-control"></textarea>
+                    <span class="text-danger" asp-validation-for="MeNUitem.description"></span>          <!--lecture4   minuts-->
+                </div>
+
+            </div>
+            <!--Price-->
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MeNUitem.Price" class="col-form-lable"></label>
+                </div>
+
+                <div class="col-8">
+                    <input asp-for="MeNUitem.Price" class="form-control" />
+                    <span class="text-danger" asp-validation-for="MeNUitem.Price"></span>          <!--lecture4   minuts-->
+                </div>
+
+            </div>
+            <!--image-->
+            <div class="form-group row">
+                <!--lecture4   33:44minuts-->
+                <div class="col-4">
+                    <label asp-for="MeNUitem.image" class="col-form-lable"></label>
+                </div>
+
+                <div class="col-8">
+                    <input type="file" multiple asp-for="MeNUitem.image" class="form-control" /> <!--lecture4 -->
+
+                </div>
+
+            </div>
+            <!--category-->
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MeNUitem.CATEGOry.Name" class="col-form-lable"></label>  <!---->
+
+                </div>
+
+                <div class="col-8">
+                    <select id="ddlCategories"
+                            asp-for="MeNUitem.CATEgoryid" asp-items="@(new SelectList(Model.categorieslisT,"id","Name"))" class="form-control"></select>    <!--MeNUitem.CATEgoryidهو عملها -->
+                    <span class="text-danger" asp-validation-for="MeNUitem.CATEgoryid"></span>          <!--lecture4   minuts-->
+                </div>
+
+            </div>
+            <!--subcategory-->
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MeNUitem.SUBcategory.Name" class="col-form-lable"></label>  <!---->
+
+                </div>
+
+                <div class="col-8">
+                    <select id="ddlsubCategories" class="form-control"
+                            asp-for="MeNUitem.SubCategOryid" asp-items="@(new SelectList(Model.suBcategorieslisT,"id","Name"))"></select>
+                    <span class="text-danger" asp-validation-for="MeNUitem.SubCategOryid"></span>          <!--lecture4   minuts-->
+                </div>
+
+            </div>
+            <!--Spicnyness-->
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MeNUitem.Spicnyness" class="col-form-lable"></label>  <!---->
+
+                </div>
+
+                <div class="col-8">
+                    <select class="form-control"
+                            asp-for="MeNUitem.Spicnyness" asp-items="@Html.GetEnumSelectList<MenItem.EspiCy>()"></select>  <!---->
+                    <span class="text-danger" asp-validation-for="MeNUitem.Spicnyness"></span>          <!--lecture4   -->
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-8 offset-4">
+                    <partial name="_UpdateAndBackToListButtonPartial" />     <!--lecture4 1:21:00-->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3 offset-1">
+            <img src="@Model.MeNUitem.image" width="100%" style="border:5px solid #bbb9b9;border-radius:5px;" />
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts{          <!--lecture4 00 minuts-->
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+    <script>
+
+        function updateSubCategories() {                        //هعرف فن كشن هسميها
+
+            var selectedCategory = document.getElementById("ddlCategories").value;
+            $list = $('#ddlsubCategories');     //جى كويرى ...هعرف ليست ...هذا المتغير لسيت بيساوى الديف
+            $.ajax({
+                url: '/Admin/SubCategories/GetSubCATegories/' + selectedCategory,     //lecture4 47:51 minuts
+                type: 'GET',
+                dataType: 'text',  //   //lecture4 47 minuts
+                success: function (data) {
+                    results = JSON.parse(data);   //  هعرف ريزلت بتساوى جيسون....
+                    $list.html(''); //  اعمل لها تفريغ       $list.empty('');         //lecture4 47:51 minuts
+                    var items = '';      //lecture4 45:47 minuts
+                    for (i in results) {
+                        items += '<option value="' + results[i].value + '">' + results[i].text + '</option>'; //lecture4 47:51 minuts
+
+                    }
+                    $list.html(items);     //lecture4 47:51 minuts
+                }
+
+            });
+
+
+
+        }
+
+
+
+        $("#ddlCategories").on("change", function () {      //اشغل الفن كشن لما يحصل تغيير على الدروب داون لسيت بتاعة الكاتيجورى                    //lecture3 1:02:21 minuts
+
+            updateSubCategories();
+        });
+
+    </script>
+
+    <script>
+        tinymce.init({  // محاضره4 الدقيقه1:14:00 بيشرح فيها التيكسيت ريتش بوكس
+            selector: 'textarea',
+            plugins: 'lists',
+            menubar: 'file  edit format',
+        });
+    </script>
+}
+
+

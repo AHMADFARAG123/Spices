@@ -1,0 +1,100 @@
+﻿@model Coupon
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 class="text-info">Add New Coupon </h2>
+<br />
+
+<form asp-action="Create" methode="post" enctype="multipart/form-data">
+
+    <div class="whiteBackGround border">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>        <!--lecture5  minuts-->
+        <!--Name of Coupon-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Name" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="Name" class="form-control" />
+                <span class="text-danger" asp-validation-for="Name"></span>          <!--lecture2 37 minuts-->
+            </div>
+
+        </div>
+        <!--Picture-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Picture" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="Picture" type="file" multiple class="form-control" />
+            </div>
+
+        </div>
+        <!--Coupon Type-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="CouponType" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <select class="form-control" asp-for="CouponType" asp-items="@Html.GetEnumSelectList<Coupon.EcouponType>()"></select>   <!--lecture5  15:32 -->
+            </div>
+
+        </div>
+        <!--Discount-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Discount" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="Discount" class="form-control" />
+                <span class="text-danger" asp-validation-for="Discount"></span>          <!--lecture2 37 minuts-->
+            </div>
+
+        </div>
+        <!--MinimumAmount-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MininmumAmount" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="MininmumAmount" class="form-control" />
+                <span class="text-danger" asp-validation-for="MininmumAmount"></span>          <!--lecture2 37 minuts-->
+            </div>
+
+        </div>
+        <!--IS Active-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="IsActive" class="col-form-lable"></label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="IsActive" type="checkbox" class="form-control" />
+                <!--lecture5   00 minuts-->
+            </div>
+
+        </div>
+        <!--Partial-->
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_CreateAndBackToListButtonPartial" />
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts{          <!--lecture2 ..minuts-->
+
+    <partial name="_ValidationScriptsPartial" />
+}

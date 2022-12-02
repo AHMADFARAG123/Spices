@@ -78,47 +78,49 @@
 
 
 
-  <script>
-      
-      function updateSubCategories() {                        //هعرف فن كشن هسميها
+    <script>
 
-          var selectedCategory = document.getElementById("ddlCategories").value;
-          $list = $('#divSubCaegoriesList');     //جى كويرى ...هعرف ليست ...هذا المتغير لسيت بيساوى الديف
-          $.ajax({
-              url: '/Admin/SubCategories/GetSubCATegories/' + selectedCategory,     //lecture3 56:51 minuts
-              type: 'GET',
-              dataType: 'text',  //   //lecture3 58 minuts
-              success: function (data) {
-                  results = JSON.parse(data);   //  هعرف ريزلت بتساوى جيسون....
+        function updateSubCategories() {                        //هعرف فن كشن هسميها
 
-                  $list.html(''); //  اعمل لها تفريغ 
+            var selectedCategory = document.getElementById("ddlCategories").value;
+            $list = $('#divSubCaegoriesList');     //جى كويرى ...هعرف ليست ...هذا المتغير لسيت بيساوى الديف
+            $.ajax({
+                url: '/Admin/SubCategories/GetSubCATegories/' + selectedCategory,     //lecture3 56:51 minuts
+                type: 'GET',
+                dataType: 'text',  //   //lecture3 58 minuts
+                success: function (data) {
+                    results = JSON.parse(data);   //  هعرف ريزلت بتساوى جيسون....
 
-                  $list.append('<ul  class="list-group">')   //  الليست دى ضيف داخلها يو ال
-                  for (i in results) {
+                    $list.html(''); //  اعمل لها تفريغ
 
-                      $list.append('<li  class="list-group-item">' + results[i].text + '</li>')
+                    $list.append('<ul  class="list-group">')   //  الليست دى ضيف داخلها يو ال
+                    for (i in results) {
 
-                  }
-                  $list.append('</ul>');     //  بعد ما تخلص الفور لووب اعمل اغلاق للان اوردر لسيت
-              }
+                        $list.append('<li  class="list-group-item">' + results[i].text + '</li>')
 
-          }
+                    }
+                    $list.append('</ul>');     //  بعد ما تخلص الفور لووب اعمل اغلاق للان اوردر لسيت
+                }
 
-          );
+            }
 
-      }
-          $(document).ready(function () {  //   اشغل الفن كشن لما الشاشة تشتغل
+            );
 
-              updateSubCategories();
+        }
 
-          
-      });
-      $("#ddlCategories").on("change", function () {      //اشغل الفن كشن لما يحصل تغيير على الدروب داون لسيت بتاعة الكاتيجورى                    //lecture3 1:02:21 minuts
 
-          updateSubCategories
-      });
-      
-      </script>  
+        $(document).ready(function () {  //   اشغل الفن كشن لما الشاشة تشتغل
+
+            updateSubCategories();
+
+
+        });
+        $("#ddlCategories").on("change", function () {      //اشغل الفن كشن لما يحصل تغيير على الدروب داون لسيت بتاعة الكاتيجورى                    //lecture3 1:02:21 minuts
+
+            updateSubCategories();
+        });
+
+    </script>
 }
 
 
@@ -127,8 +129,3 @@
 
 
 
-<!--notes from mind Erease-->
-<div class="col-6 text-right">
-    <p>Route==>Areas=>Admin=>F-Viwes=>F-SubCategories=>Create.cshtml </p>
-</div>
-<!--notes from mind  Erase-->
