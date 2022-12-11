@@ -24,7 +24,7 @@ namespace Spices.Areas.Customer.Controllers
             {
                 CategorieS = await db.Categories.ToListAsync(),
                 MenItemS = await db.MenuItems.Include(m=>m.CATEGOry).Include(m=>m.SUBcategory).ToListAsync(),
-                CouponS = await db.Coupons.Where(m=>m.IsActive).ToListAsync()
+                CouponS = await db.Coupons.Where(m=>m.IsActive==true).ToListAsync()  // lecture6   20 minuts
 
             };
 
@@ -32,5 +32,15 @@ namespace Spices.Areas.Customer.Controllers
 
             return View(IndexVM);
         }
+
+        //test for me
+        public async Task <IActionResult> Test()                   
+        {
+
+            return View();
+            // end test for me
+        }
+
+
     }
 }

@@ -1,0 +1,121 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Test</h1>
+
+@if (Model.CouponS.Count() > 0)
+{
+    <div class="border row">
+        <div class="carousel row" data-ride="carousel" data-interval="2500">
+            <!--lecture6  11:19     data-ride اسمها اتريبيوت-->
+            @for (int i = 0; i < Model.CouponS.Count(); i++)
+            {
+
+
+                var basE64 = Convert.ToBase64String(Model.CouponS.ToList()[i].Picture);<!--lecture6  16:13-->
+                var imageSrc = string.Format("data:iamge/jpeg;base64,{0}", basE64); <!--lecture6  16:13-->
+
+
+                if (i == 0)
+                {
+                    <div class="carousel-item active">
+                        <img src="@imageSrc" height="100px" class="d-block w-100" />
+
+                    </div>
+
+                }
+                else
+                {
+                    <div class="carousel-item">
+                        <img src="@imageSrc" height="100px" class="d-block w-100" />
+
+                    </div>
+
+                }
+
+            }
+
+
+
+        </div>
+    </div>
+
+}
+<br />
+<br />
+<!--lecture6  22:00-->
+<!--lecture6 show categories-->
+<div class="whiteBackGround container">
+    <!--lecture6  22:00  now i will make foreach to find all categories or make loop on categories-->
+
+    @foreach (var CateGory in Model.CategorieS)
+    {
+
+        var menuItEms = Model.MenItemS.Where(m => m.CATEGOry.Name.Equals(CateGory.Name));<!--lecture6  23:00   we will get all items for each categories-->
+
+
+        <div class="row">
+            @if (menuItEms.Count() > 0)
+            {
+
+
+                <div class="col-12"style="background-color:blueviolet;">
+
+                    <div class="row">
+
+                        <h3 class="text-success"> @CateGory.Name </h3>    <!--lecture6  26:00-->
+                    </div>
+                    @foreach (var iteM in menuItEms)
+                    {
+                       
+                        <div class="col-12 border border-info rounded" style="background-color:#e9f72e;margin-top:10px;margin-bottom:10px;padding:10px">
+                        
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12">
+                                    <img src="@iteM.image" width="99%" style="border-radius: 20px; border: 5px solid #bbb9b9 "/>
+
+
+                                </div>
+
+                                <div class="col-md-9 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-8">
+                                                <label class="text-primary">
+                                                    @iteM.Name
+                                                </label>
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+                            </div>
+
+                    }
+
+                </div>
+
+
+
+            }
+
+
+
+        </div>  //1
+
+    }
+
+
+
+</div>
