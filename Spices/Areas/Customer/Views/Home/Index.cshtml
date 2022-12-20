@@ -9,7 +9,7 @@
 @if (Model.CouponS.Count() > 0)
 {
     <div class="border row">
-        <div class="carousel row" data-ride="carousel" data-interval="2500">
+        <div class="carousel row" data-ride="carousel" data-interval="2500" width="100px">
             <!--lecture6  11:19     data-ride اسمها اتريبيوت-->
             @for (int i = 0; i < Model.CouponS.Count(); i++)
             {
@@ -49,75 +49,98 @@
 <!--lecture6  22:00-->
 <!--lecture6 show categories-->
 <div class="whiteBackGround container">
-    <!--lecture6  22:00  now i will make foreach to find all categories or make loop on categories-->
 
-    @foreach (var CateGory in Model.CategorieS)
+
+    <ul id="menu-filter" class="menu-filter-list list-inline text-center">   <!--lecture6 53:00-->
+
+                <li class="active btn btn-secondary mr-1 ml-1" data-filter=".ALLCAtegories">Show ALL</li>
+
+                @foreach (var CAtegorY in Model.CategorieS)
+                {
+                  <li class="btn btn-secondary mr-2 ml-2"  data-filter=".@CAtegorY.Name.Replace(" ",string.Empty)">@CAtegorY.Name</li>    <!--lecture6 55:36-->
+                } 
+   
+    </ul> 
+
+
+
+    @foreach (var CateGory in Model.CategorieS)   /*<!--lecture6  22:00  now i will make foreach to find all categories or make loop on categories-->*/
     {
 
-        var menuItEms = Model.MenItemS.Where(m => m.CATEGOry.Name.Equals(CateGory.Name));<!--lecture6  23:00   we will get all items for each categories-->
+    var menuItEms = Model.MenItemS.Where(m => m.CATEGOry.Name.Equals(CateGory.Name));   <!--lecture6  23:00   we will get all items for each categories-->
 
 
-        <div class="row">    <!--1-->
-            @if (menuItEms.Count() > 0)
-            {
+    <div class="row">
+        <!--1-->
+        @if (menuItEms.Count() > 0)
+        {
 
 
-                <div class="col-12"> <!--2-->
+            <div class="col-12 @CateGory.Name.Replace(" ",string.Empty) ALLCAtegories">
+                <!--2-->
+                
+                <div class="row">
 
-                    <div class="row">
+                    <h3 class="text-success"> @CateGory.Name </h3>    <!--lecture6  26:00-->
+                </div>
+                @foreach (var iteM in menuItEms)
+                {
 
-                        <h3 class="text-success"> @CateGory.Name </h3>    <!--lecture6  26:00-->
-                    </div>
-                    @foreach (var iteM in menuItEms)
-                    {
-                       
-                        <div class="col-12 border border-info rounded" style="margin-top:10px;margin-bottom:10px;padding:10px">  <!--3-->
-                        
-                            <div class="row"> <!--100-->
-                                <div class="col-md-3 col-sm-12">  <!--200-->
-                                    <img src="@iteM.image" width="99%" style="border-radius: 20px; border: 5px solid #bbb9b9 "/>
+                    <div class="col-12 border border-info rounded" style="margin-top:10px;margin-bottom:10px;padding:10px">
+                        <!--3-->
+
+                        <div class="row">
+                            <!--100-->
+                            <div class="col-md-3 col-sm-12">
+                                <!--200-->
+                                <img src="@iteM.image" width="99%" style="border-radius: 20px; border: 5px solid #bbb9b9 " />
 
 
+                            </div>
+
+                            <div class="col-md-9 col-sm-12">
+                                <!--300-->
+                                <div class="row pr-3">
+                                    <!--1000-->
+                                    <div class="col-8">
+                                        <!--2000-->
+                                        <label class="text-primary">
+                                            @iteM.Name    <!--lecture6  34:28 -->
+                                        </label>
+                                        @if (iteM.Spicnyness == "1")
+                                        {
+                                            <img src="~/images/greenpepper.jpg" title="Not Spicy" width="50px" />
+
+                                        }
+                                        else if (iteM.Spicnyness == "2")
+                                        {
+                                            <img src="~/images/Mild.jpg" title="Mild" style="width:50px" />
+
+                                        }
+                                        else if (iteM.Spicnyness == "3")
+                                        {
+                                            <img src="~/images/dishes three.jpg" title="HOOOT" width="50px" />
+
+
+
+                                        }
+
+                                    </div>
+
+                                    <div class="col-4 text-right" style="color:maroon">
+                                        <!--3000-->
+                                        <h4> $@iteM.Price</h4>
+                                    </div>
                                 </div>
 
-                                <div class="col-md-9 col-sm-12">  <!--300-->
-                                    <div class="row pr-3"> <!--1000-->
-                                        <div class="col-8">  <!--2000-->
-                                            <label class="text-primary">
-                                                @iteM.Name    <!--lecture6  34:28 -->
-                                            </label>
-                                            @if (iteM.Spicnyness == "1")
-                                            {
-                                        <img src="~/images/greenpepper.jpg" title="Not Spicy" width="50px" />
+                                <div class="row col-12 text-justify d-none d-md-block">
+                                    <!--A100000-->
 
-                                            }
-                                            else if (iteM.Spicnyness == "2")
-                                            {
-                                                <img src="~/images/Mild.jpg" title="Mild" style="width:50px" />
+                                    <p>@Html.Raw(@iteM.description)</p>  <!--lecture6 41:39-->
 
-                                            }
-                                            else if (iteM.Spicnyness == "3")
-                                            {
-                                                <img src="~/images/dishes three.jpg" title="HOOOT" width="50px" />
-
-                                               
-
-                                            }
-
-                                        </div>
-                                       
-                                        <div class="col-4 text-right"style="color:maroon"> <!--3000-->
-                                            <h4> $@iteM.Price</h4>
-                                        </div>
-                                    </div>
-
-                                    <div class="row col-12 text-justify d-none d-md-block"> <!--A100000-->
-                                            
-                                            <p>@Html.Raw(@iteM.description)</p>  <!--lecture6 41:39-->
-                                        
-                                    </div>
+                                </div>
                                 <div class="col-md-3 col-sm-12 offset-md-9 text-right">
-                                    <a asp-action="Details" class="btn btn-success form-control"asp-route-id="@iteM.ID">Details</a>
+                                    <a asp-action="Details" class="btn btn-success form-control" asp-route-id="@iteM.ID">Details</a>
                                 </div>
                                 <div>
 
@@ -125,28 +148,55 @@
 
 
 
-                                </div>
                             </div>
+                        </div>
 
 
 
 
-                            </div>
+                    </div>
 
-                    }
+                }
 
-                </div>
-
-
-
-            }
+            </div>
 
 
 
-        </div>  //1
+        }
 
+
+
+    </div> //1
+    <div class="p-4"></div> <!--lecture6  45:33-->
     }
 
 
 
+
 </div>
+@section Scripts{
+<script>
+
+    $(document).ready(
+
+        function ($) {
+            $("#menu-filter li").click(
+                function () {
+                    $(this).addClass("active btn btn-secondary");
+                    var selectedFIlter = $(this).data("filter");
+                    $(".ALLCAtegories").fadeOut();
+                    setTimeout(function () {
+
+                        $(selectedFIlter).slideDown();
+                    }, 300);
+                }
+
+            )
+
+        }
+
+    );
+
+</script>
+
+}
