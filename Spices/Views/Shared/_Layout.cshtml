@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http   <!--Lecture8    1:13:00-->    <!--وهعمل انجيكت لسيرفيز اسمها   IHttpContextAccessor وهعرف منها اوبجيكت-->
+@inject IHttpContextAccessor HTTPHttpContextAccessoR
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,15 +9,27 @@
     <title>@ViewData["Title"] - Spices</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-   
-                 <!--manual download fontawsome lactcure2  farag -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!--manual download fontawsome lactcure2  farag -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="webBackGround">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Spices</a>
+
+                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">
+                    <!--lecture7   01:41:00-->
+                    @*<img src="~/images/greenpepper.jpg" width="25px" />      lecture7   01:42:00
+                        <img src="~/images/Mild.jpg" width="25px" />*@
+                    <label class="text-info" style="cursor:pointer;">
+                        <!--lecture7   01:41:00-->
+                        Spices
+                    </label>                                                   <!--lecture7   01:41:00-->
+
+
+                </a>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,27 +37,57 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Content Managment
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-action="index" asp-controller="Categories" asp-area="Admin"> Category</a>
-                                <a class="dropdown-item" asp-action="index" asp-controller="SubCategories" asp-area="Admin">Sub Category</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-action="index" asp-controller="MenuItems" asp-area="Admin">Menu Item</a>     <!--LECTURE 4    22:15-->
-                                <a class="dropdown-item" asp-action="index" asp-controller="Coupons"   asp-area="Admin">Coupons</a>  <!--Lecture5   11 minuts-->
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Users</a>
+                        @*<li class="nav-item">
+                                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>    //lecture7 01:04:00
+                                            </li>
+                                            @*<li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>      //lecture7 01:04:00
+                            </li>*@
 
-                            </div>
-                        </li>
+
+                        @if (User.IsInRole(SD.manageruser))      //<!--lecture7  01:39:37   الدروب داون ليست هتظهر للرول اللى واخده مانيجر-->
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Content Managment
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-action="index" asp-controller="Categories" asp-area="Admin"> Category</a>
+                                    <a class="dropdown-item" asp-action="index" asp-controller="SubCategories" asp-area="Admin">Sub Category</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-action="index" asp-controller="MenuItems" asp-area="Admin">Menu Item</a>     <!--LECTURE 4    22:15-->
+                                    <a class="dropdown-item" asp-action="index" asp-controller="Coupons" asp-area="Admin">Coupons</a>  <!--Lecture5   11 minuts-->
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-action="index" asp-controller="Users" asp-area="Admin">Users</a>     <!--Lecture7  56:34 minuts-->
+                                </div>
+                            </li>
+                        }
+
+                        @if (HTTPHttpContextAccessoR.HttpContext.Session.GetInt32(SD.shoppingcartcount) == null)// lecture8  1:14:00
+                        {
+                            <li class="nav-item">
+                                <!--lecture7   01:44:00-->
+
+                                <a href="#" class="text-white" style="text-decoration:none">
+                                    <i class="fa-solid fa-cart-shopping"></i>&nbsp;(0)  <!--lecture7   01:46:20-->
+                                    @* <i class="fas-fa-shopping-cart"></i>  &nbsp;(0)    =>>>>  &nbsp; =>>    nullable space *@
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <!--lecture8   01:14:00-->
+
+                                <a asp-action="Index" asp-controller="Carts" asp-area="Customer" class="text-white" style="text-decoration:none">
+                                    <i class="fa-solid fa-cart-shopping"></i>&nbsp;(@HTTPHttpContextAccessoR.HttpContext.Session.GetInt32(SD.shoppingcartcount))
+                                    @* <i class="fas-fa-shopping-cart"></i>  &nbsp;(0)    =>>>>  &nbsp; =>>    nullable space *@
+                                </a>
+                            </li>
+
+                        }
+
+
                     </ul>
                 </div>
             </div>

@@ -82,6 +82,10 @@ namespace Spices.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -133,6 +137,8 @@ namespace Spices.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -162,12 +168,10 @@ namespace Spices.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -204,12 +208,10 @@ namespace Spices.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -305,6 +307,115 @@ namespace Spices.Data.Migrations
                     b.ToTable("MenuItems");
                 });
 
+            modelBuilder.Entity("Spices.Models.OrderDetail", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MenuIteMid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("cOunt")
+                        .HasColumnType("int");
+
+                    b.Property<int>("orderiD")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("MenuIteMid");
+
+                    b.HasIndex("orderiD");
+
+                    b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("Spices.Models.OrderHeader", b =>
+                {
+                    b.Property<int>("iD")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Couponcode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CouponcodeDiscount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("OrderTotal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OrderTotalOrginal")
+                        .HasColumnType("float");
+
+                    b.Property<string>("PaymentStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PickUpName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PickUpTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrasactionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UseriD")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("iD");
+
+                    b.HasIndex("UseriD");
+
+                    b.ToTable("OrderHeaders");
+                });
+
+            modelBuilder.Entity("Spices.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUsErId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CouNt")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MenuIteMId")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("ShoppingCarts");
+                });
+
             modelBuilder.Entity("Spices.Models.SubCategory", b =>
                 {
                     b.Property<int>("id")
@@ -324,6 +435,28 @@ namespace Spices.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
+                });
+
+            modelBuilder.Entity("Spices.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("postalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -388,6 +521,30 @@ namespace Spices.Data.Migrations
                     b.HasOne("Spices.Models.SubCategory", "SUBcategory")
                         .WithMany()
                         .HasForeignKey("SubCategOryid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Spices.Models.OrderDetail", b =>
+                {
+                    b.HasOne("Spices.Models.MenItem", "MenItEm")
+                        .WithMany()
+                        .HasForeignKey("MenuIteMid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Spices.Models.OrderHeader", "OrderHeadEr")
+                        .WithMany()
+                        .HasForeignKey("orderiD")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Spices.Models.OrderHeader", b =>
+                {
+                    b.HasOne("Spices.Models.ApplicationUser", "applicationUser")
+                        .WithMany()
+                        .HasForeignKey("UseriD")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

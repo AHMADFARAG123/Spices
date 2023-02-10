@@ -88,7 +88,7 @@ height: 100vh;
 color: #fff;*/
 
 /*ctrl+f*/
-.menu-filter-list{                                             /*lecture6   50:00*/   
+.menu-filter-list li{                                             /*lecture6   50:00*/   
     display:inline-block;
     cursor:pointer;
     padding:10px 20px 10px;

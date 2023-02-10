@@ -1,0 +1,153 @@
+﻿@model ShoppingCart  
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--lecture8  14:08:00 minuts-->
+<br />
+<h2 class="text-info">Menu Item Details</h2>
+<br />
+
+<form asp-action="Details" methode="post">     <!-- Erease this in lecture8  22:08:00  =>>>  enctype="multipart/form-data"-->
+    <input type="hidden" asp-for="MenuIteMId" />        
+   
+
+    <div class="whiteBackGround border row">
+        <div class="col-md-8">  <!-- Erease this in lecture8  35:15:00  =>>>  explane col-md-8    فى حالة الميديم واكبر تاخد 8اعمده اما فى حالة اصغر فتاخد العرض كامل-->
+
+         
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+             <div class="col-12 pb-4 d-md-none">     <!--display none lecture8 29:14:00 -->
+            <img src="@Model.MenIteM.image" width="100%" style="border:5px solid #bbb9b9;border-radius:5px;" />
+        </div>
+            <!--Name-->
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <!-- lecture8 31:09:00 -->
+                    <label asp-for="MenIteM.Name" class="text-info font-weight-bold"></label>  <!-- in lecture8 32:30:00 he change this to class="text-info font-weight-bold-->
+                </div>
+
+                <div class="col-md-8">
+                    <input asp-for="MenIteM.Name" readonly class="form-control" />     <!--lecture8   19:35  put readonly -->
+
+                </div>
+
+            </div>
+            <!--Dsecrepion-->
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="MenIteM.description" class="text-info font-weight-bold "></label>
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="border p-2" style="border-radius:5px;">  <!--lecture8   26:10:00-->
+                        @Html.Raw(Model.MenIteM.description)  <!--lecture8   18:29-->
+                    </div>
+                </div>
+
+            </div>
+            <!--Price-->
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="MenIteM.Price" class="text-info font-weight-bold"></label>  <!--lecture8  replace32:00:00-->
+                </div>
+
+                <div class="col-md-8">
+                    <input asp-for="MenIteM.Price" readonly class="form-control" />
+
+                </div>
+
+            </div>
+            <!--image-->
+            <!--category-->
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="MenIteM.CATEGOry.Name" class="text-info font-weight-bold"></label>  <!---->
+
+                </div>
+
+                <div class="col-md-8">
+                    <input asp-for="MenIteM.CATEGOry.Name" readonly class="form-control" />
+                </div>
+
+            </div>
+            <!--subcategory-->
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="MenIteM.SUBcategory.Name" readonly class="text-info font-weight-bold"></label>  <!--lecture8  16:17:00 -->
+
+                </div>
+
+                <div class="col-md-8">
+                    <input asp-for="MenIteM.SUBcategory.Name" readonly class="form-control" />
+                </div>
+
+            </div>
+            <!--Spicnyness-->
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="MenIteM.Spicnyness" class="text-info font-weight-bold"></label>  <!---->
+
+                </div>
+
+                <div class="col-md-8">
+                    <select asp-for="MenIteM.Spicnyness" disabled asp-items="@Html.GetEnumSelectList<MenItem.EspiCy>()" class="form-control">   <!--lecture8  19:50:00  he put disabled-->
+                    </select>  <!--lecture8  18:52:00 -->
+
+                </div>
+
+            </div>
+
+            <!--Count-->
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="CouNt" class="text-info font-weight-bold"></label>  <!---->
+
+                </div>
+
+                <div class="col-md-8">
+                    <!--lecture8  19:08 -->
+                    <input asp-for="CouNt" class="form-control" />
+                    <span asp-validation-for="CouNt" class="text-danger"></span>    <!--lecture8     20:13:00-->
+                </div>
+
+            </div>
+            <div class="form-group row">  
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4 mb-4">  <!--lecture8  21:50:00  margin bottom or  pading bottom  pb-2   34:00:00-->
+                 <a asp-action="Index" class="btn btn-success form-control">Back To List</a>      <!--lecture8  21:50:00-->
+                </div>
+                <div class="col-md-4 ">
+                    <input type="submit" value="Add To Shoping Cart" class="btn btn-primary form-control" />   <!--lecture8  21:50:00-->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3 d-none d-md-block offset-1">
+            <!--display none lecture8 28:12:00 -->
+            <img src="@Model.MenIteM.image" width="100%" style="border:5px solid #bbb9b9;border-radius:5px;" />
+           
+        </div>
+
+
+    </div>
+
+</form>
+
+@section Scripts{          <!--lecture8  minuts-->
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+ 
+}
+
+
+
+

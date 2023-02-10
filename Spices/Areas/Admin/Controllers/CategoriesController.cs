@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spices.Data;
 using Spices.Models;
+using Spices.Utilit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Spices.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.manageruser)]  //  lecture7  52:31    وده معناه ان اليوزر كونترولر ده مصرح فقط للرول اللى هو مانجر
     [Area("Admin")]
     public class CategoriesController : Controller
     {

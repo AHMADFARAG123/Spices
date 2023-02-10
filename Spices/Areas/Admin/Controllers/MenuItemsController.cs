@@ -9,10 +9,13 @@ using Spices.Models.ViewModels;
 using Spices.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
+using Spices.Utilit;
 
 namespace Spices.Areas.Admin.Controllers
 {
-    [Area("Admin")]    //l 4         15:46
+    [Authorize(Roles = SD.manageruser)]  //  lecture7  52:31    وده معناه ان اليوزر كونترولر ده مصرح فقط للرول اللى هو مانجر
+    [Area("Admin")]    //lecture4         15:46
     public class MenuItemsController : Controller
     {
         private readonly ApplicationDbContext db;
